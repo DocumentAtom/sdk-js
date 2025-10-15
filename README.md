@@ -4,16 +4,6 @@
 
 ## Features
 
-- Multi-tenant support with tenant GUID management
-- Graph management
-- Node and edge operations
-- Route finding between nodes
-- Search capabilities for graphs, nodes, and edges
-- GEXF format export support
-- Built-in retry mechanism and error handling
-- Comprehensive logging system
-- Access key authentication support
-
 ## Requirements
 
 - Node.js v18.20.4
