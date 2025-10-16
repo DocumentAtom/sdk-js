@@ -3,3 +3,7 @@ export interface TypeDetectionResponse {
   Extension: string;
   Type: string;
 }
+
+export interface ExtractAtomResponse {
+  atoms: any[];
+}

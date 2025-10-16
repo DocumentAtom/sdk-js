@@ -3,6 +3,7 @@ import { SdkConfiguration } from './SdkConfiguration';
 import { SeverityEnum } from '../enums/SeverityEnum';
 import Logger from '../utils/Logger';
 import TypeDetection from '../sdks/TypeDetection';
+import ExtractAtom from '../sdks/ExtractAtom';
 /**
  * Document Atom SDK class.
  * Extends the SdkBase class.
@@ -12,6 +13,7 @@ import TypeDetection from '../sdks/TypeDetection';
 export default class DocumentAtomSdk {
   public config: SdkConfiguration;
   public TypeDetection: TypeDetection;
+  public ExtractAtom: ExtractAtom;
   /**
    * Instantiate the SDK.
    * @param {string} endpoint - The endpoint URL.
@@ -21,6 +23,7 @@ export default class DocumentAtomSdk {
     const config = new SdkConfiguration(endpoint);
     this.config = config;
     this.TypeDetection = new TypeDetection(config);
+    this.ExtractAtom = new ExtractAtom(config);
   }
 
   /**
