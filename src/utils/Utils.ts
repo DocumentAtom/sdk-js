@@ -1,32 +1,24 @@
-import { EnumerateRequest } from '../types';
+import fs from 'fs';
+import GenericExceptionHandlers from '../exception/GenericExceptionHandlers';
 
-/*
-  StringUtils is a utility class for string operations.
-*/
 class Utils {
   /**
-   * Encodes a string to base64.
-   * @param {string} str - The string to encode.
-   * @return {string} The encoded string.
+   * Converts a file to binary data.
+   * @param {string} filePath - The path to the file.
+   * @return {Buffer} The binary data of the file.
    */
-  static createUrlParams(request?: EnumerateRequest): string {
-    const params = new URLSearchParams();
-    if (request?.token) {
-      params.set('token', request.token);
+  static convertFileToBinary(filePath: string): { buffer: Buffer; size: string } {
+    try {
+      if (!fs.existsSync(filePath)) {
+        throw GenericExceptionHandlers.GenericException(`File not found at ${filePath}`);
+      }
+      const buf = fs.readFileSync(filePath); // Buffer with raw bytes
+      const stat = fs.statSync(filePath);
+      return { buffer: buf, size: String(stat.size) };
+    } catch (err) {
+      GenericExceptionHandlers.GenericException(err instanceof Error ? err.message : String(err));
+      throw err;
     }
-    if (request?.maxKeys) {
-      params.set('maxKeys', request.maxKeys.toString());
-    }
-    if (request?.includeData) {
-      params.set('incldata', request.includeData.toString());
-    }
-    if (request?.includeSubordinates) {
-      params.set('inclsub', request.includeSubordinates.toString());
-    }
-    if (request?.skip) {
-      params.set('skip', request.skip.toString());
-    }
-    return params.toString() ? '?' + params.toString() : '';
   }
 }
 

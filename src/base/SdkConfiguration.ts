@@ -17,6 +17,7 @@ export class SdkConfiguration {
 
     this.endpoint = endpoint.endsWith('/') ? endpoint : endpoint + '/';
     this.timeoutMs = 300000;
+    this.defaultHeaders = {};
   }
 
   /**

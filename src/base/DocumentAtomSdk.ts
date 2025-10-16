@@ -2,6 +2,7 @@ import superagent from 'superagent';
 import { SdkConfiguration } from './SdkConfiguration';
 import { SeverityEnum } from '../enums/SeverityEnum';
 import Logger from '../utils/Logger';
+import TypeDetection from '../sdks/TypeDetection';
 /**
  * Document Atom SDK class.
  * Extends the SdkBase class.
@@ -10,6 +11,7 @@ import Logger from '../utils/Logger';
  */
 export default class DocumentAtomSdk {
   public config: SdkConfiguration;
+  public TypeDetection: TypeDetection;
   /**
    * Instantiate the SDK.
    * @param {string} endpoint - The endpoint URL.
@@ -18,6 +20,7 @@ export default class DocumentAtomSdk {
   constructor(endpoint: string = 'http://localhost:8000/') {
     const config = new SdkConfiguration(endpoint);
     this.config = config;
+    this.TypeDetection = new TypeDetection(config);
   }
 
   /**
