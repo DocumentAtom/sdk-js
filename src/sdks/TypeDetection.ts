@@ -2,7 +2,6 @@ import SdkBase from '../base/SdkBase';
 import { SdkConfiguration } from '../base/SdkConfiguration';
 import GenericExceptionHandlers from '../exception/GenericExceptionHandlers';
 import { TypeDetectionResponse } from '../types';
-import Utils from '../utils/Utils';
 
 /**
  * Type Detection SDK class.
@@ -17,19 +16,17 @@ export default class TypeDetection extends SdkBase {
 
   /**
    * Detects the type of the data.
-   * @param {string} filePath - The file path to detect the type of.
+   * @param {Buffer} fileBinary - The binary of the file to detect the type of.
    * @param {AbortController} [cancellationToken] - The cancellation token.
    * @returns {Promise<TypeDetectionResponse>} The type of the data.
    */
-  detectType(filePath: string, cancellationToken: AbortController): Promise<TypeDetectionResponse> {
-    if (!filePath) {
-      GenericExceptionHandlers.ArgumentNullException('filePath');
+  detectType(fileBinary: Buffer, cancellationToken: AbortController): Promise<TypeDetectionResponse> {
+    if (!fileBinary) {
+      GenericExceptionHandlers.ArgumentNullException('fileBinary');
     }
-
-    const fileBinary = Utils.convertFileToBinary(filePath);
 
     const url = `${this.config.endpoint}typedetect`;
 
-    return this.upload<any>(url, fileBinary, cancellationToken);
+    return this.upload<TypeDetectionResponse>(url, fileBinary, cancellationToken);
   }
 }

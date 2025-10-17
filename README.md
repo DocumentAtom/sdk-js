@@ -14,9 +14,6 @@
 - `jest` - for testing
 - `msw` - for mocking the api
 - `superagent` - for making the api calls
-- `url` - for url parsing
-- `util` - for utility functions
-- `uuid` - for generating unique ids
 
 ### Setting up Pre-commit Hooks
 

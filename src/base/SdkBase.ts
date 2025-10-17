@@ -38,22 +38,18 @@ export default class SdkBase {
   /**
    * Submits data using a POST request to a given URL.
    * @param {string} url - The URL to post data to.
-   * @param {{ buffer: Buffer; size: string }} data - The data to send in the POST request.
+   * @param {Buffer} data - The data to send in the POST request.
    * @param {AbortController} [cancellationToken] - Optional cancellation token for cancelling the request.
    * @return {Promise<Object>} Resolves with the response data.
    * @throws {Error | ApiErrorResponse} Rejects if the URL or data is invalid or if the request fails.
    */
-  protected upload<T>(
-    url: string,
-    data: { buffer: Buffer; size: string },
-    cancellationToken?: AbortController
-  ): Promise<T> {
+  protected upload<T>(url: string, data: Buffer, cancellationToken?: AbortController): Promise<T> {
     return new Promise((resolve, reject) => {
       if (!url) return reject(new Error('URL cannot be null or empty.'));
       const request = superagent
         .post(url)
-        .set({ ...this.config.defaultHeaders, 'Content-Length': data.size })
-        .attach('file', data.buffer)
+        .set(this.config.defaultHeaders)
+        .attach('file', data)
         .timeout({ response: this.config.timeoutMs });
       // If a cancelToken is provided, attach the abort method
       if (cancellationToken) {
